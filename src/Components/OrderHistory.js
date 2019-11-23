@@ -20,7 +20,7 @@ export default class OrderHistory extends Component {
               <Title name="your" title="history" />
               {orderHistory.length == 0
                 ? <p>You have not purchased anything, go <Link to="/">here</Link> to buy something </p>
-                : orderHistory.map((order, index) => {
+                : orderHistory.slice(0).reverse().map((order, index) => {
                   const orderFrequency = frequencies.find(frequency => {
                     return parseInt(frequency.id) === parseInt(order.frequency);
                   })
