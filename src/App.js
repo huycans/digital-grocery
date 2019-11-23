@@ -13,6 +13,7 @@ import Checkout from './Components/Checkout'
 import Payment from './Components/Payment/Payment'
 import OrderHistory from "./Components/OrderHistory";
 import PaymentSucessful from "./Components/PaymentSucessful";
+import UserProfile from "./Components/UserProfile";
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/payment" component={Payment} />
           <Route path="/history" component={OrderHistory} />
           <Route path="/success" component={PaymentSucessful} />
+          <Route path="/user" component={UserProfile} />
           <Route component={Default} />
         </Switch>
         {/*<Modal />*/}

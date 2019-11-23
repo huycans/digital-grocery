@@ -15,7 +15,7 @@ body{
   letter-spacing: 0.3 rem;
   text-transform: uppercase;
 }
-.text-blue{
+.text-green{
   color: var(--mainGreen);
 }
 .text-bright{
@@ -58,7 +58,7 @@ input.searchbar{
   font-size:1.4rem;
 }
 .expdate{
-  max-width: 200px;
+  max-width: 250px;
   min-width: 150px;
 }
 

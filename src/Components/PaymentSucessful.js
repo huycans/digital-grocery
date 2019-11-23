@@ -13,7 +13,7 @@ export default class PaymentSucessful extends Component {
               <Link to="/" >
                 <ButtonContainer>
                   <span className="mr-2">
-                    <i className="fa fa-arrow-left text-blue" aria-hidden="true">
+                    <i className="fa fa-arrow-left text-green" aria-hidden="true">
                       Return to the store
                   </i>
                   </span>

@@ -58,7 +58,7 @@ class PaymentCardForm extends Component {
             dateErrorMsg } = this.state;
           const finishPayment = () => {
             pay(); 
-            history.push("/history");
+            history.push("/success");
           }
 
           let disabledPay = !(!nameError && !cardnumError && !(expMonth == "") && !(expYear == "") && !securityError && this.checkDate());

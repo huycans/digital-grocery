@@ -29,7 +29,13 @@ class ProductProvider extends Component {
     cardnum: "",
     expMonth: "",
     expYear: "",
-    security: ""
+    security: "",
+    //help message on or off
+    help: true,
+    //user profile
+    username: "",
+    email: "",
+    password: ""
   };
 
   onFormChange = (elemName, value) => {
