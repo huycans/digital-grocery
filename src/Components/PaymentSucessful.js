@@ -18,9 +18,24 @@ export default class PaymentSucessful extends Component {
                   </i>
                   </span>
                 </ButtonContainer>
+
+
               </Link>
             </div>
 
+            <div className="center-anchor my-4">
+              <Link to="/history" >
+                <ButtonContainer>
+                  <span className="mr-2">
+                    <i className="fa fa-arrow-left text-green" aria-hidden="true">
+                      Or view your order here
+                  </i>
+                  </span>
+                </ButtonContainer>
+
+                
+              </Link>
+            </div>
           </div>
         </div>
       </div>
