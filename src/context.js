@@ -33,10 +33,17 @@ class ProductProvider extends Component {
     //help message on or off
     help: true,
     //user profile
-    username: "",
     email: "",
     password: ""
   };
+
+  signup = () => {
+    alert("signup")
+  }
+  signin = () => {
+    alert("signin")
+
+  }
 
   onFormChange = (elemName, value) => {
     this.setState({[elemName]: value})
@@ -304,7 +311,9 @@ class ProductProvider extends Component {
           pay: this.pay,
           subscribeToggle: this.subscribeToggle,
           changeFrequency: this.changeFrequency,
-          onFormChange: this.onFormChange
+          onFormChange: this.onFormChange,
+          signin: this.signin,
+          signup: this.signup
         }}
       >
         {this.props.children}

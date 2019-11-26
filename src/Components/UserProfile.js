@@ -20,11 +20,6 @@ export default class UserProfile extends Component {
                   </p>
                   <p>
                     <h4>
-                      Username: {username}
-                    </h4>
-                  </p>
-                  <p>
-                    <h4>
                       Email: {email}
                     </h4>
                   </p>
