@@ -64,7 +64,6 @@ export default class Payment extends Component {
                     </div>
                     {paymethod !== "" ?
                       <PaymentCardForm paymethod={paymethod}></PaymentCardForm>
-
                       : null
                     }
                   </form>

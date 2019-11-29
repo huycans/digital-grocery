@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Textbox, Radiobox, Select } from 'react-inputs-validation';
+import HelpTooltip from "../HelpTooltip"
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import { ProductConsumer } from '../../context';
 import { monthList, yearList } from '../constants';
@@ -103,7 +104,7 @@ class PaymentCardForm extends Component {
             <br></br>
 
             <label>
-              <span>Card number</span>
+              <span>Card number <HelpTooltip msg="Visa and Mastercard's number is 16 digits long, American Express is 15" /></span>
               <Textbox
                 attributesInput={{
                   id: "cardnum",
@@ -140,7 +141,7 @@ class PaymentCardForm extends Component {
             </label>
 
             <div className="column">
-              <span>Expiration date</span>
+              <span>Expiration date <HelpTooltip msg="Experiation date on your card looks like mm/yy or mm/yyyy"/></span>
               <div className="row">
                 <div className="expdate">
                   <Select
@@ -205,7 +206,7 @@ class PaymentCardForm extends Component {
             </div>
 
             <label>
-              <span>Security code</span>
+              <span>Security code <HelpTooltip msg="Visa and Mastercard's security code is 3 digits long and in the back of the card, American Express's is 4 digits and in the front" /></span>
               <Textbox
                 attributesInput={{
                   id: "security",

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Select, Checkbox } from 'react-inputs-validation';
+import { Select, Checkbox, Radiobox } from 'react-inputs-validation';
+import HelpTooltip from "./HelpTooltip.js"
 import { ButtonContainer } from './Button'
 import { ProductConsumer } from '../context'
 import Title from './Title'
 import {frequencies} from './constants'
+
 // const Checkbox = props => (
 //   <input type="checkbox" {...props} />
 // )
@@ -48,7 +50,7 @@ export default class Checkout extends Component {
                 }}
                 labelHtml={
                   <div style={{ color: '#4a4a4a', marginTop: '2px' }}>
-                    Subscribe to this order?
+                    Subscribe to this order? <HelpTooltip msg="If you subscribed, you will receive this order periodically" />
                 </div>
                 } //Required.[Html].Default: none.
                 validationOption={{
@@ -62,8 +64,8 @@ export default class Checkout extends Component {
               {subscribed ? 
                 <div>
                 <label>
-                  Deliver once every:&nbsp;&nbsp;&nbsp;
-                  <Select
+                  <p>Deliver once every:&nbsp;&nbsp;&nbsp;</p>
+                  <Radiobox
                     attributesInput={{
                       id: "frequency",
                       name: "frequency"
@@ -71,7 +73,7 @@ export default class Checkout extends Component {
                     value={frequency} // Optional.[String].Default: "".
                     optionList={frequencies} // Required.[Array of Object(s)].Default: [].
                     // validate={true}
-                    classNameSelect={"custom-select"}
+                    classNameContainer="payment-radio" 
                     onChange={(frequency, e) => {
                       onFormChange("frequency", frequency.id);
 

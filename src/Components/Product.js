@@ -13,7 +13,6 @@ export default class Product extends Component {
         <div className="card">
           <ProductConsumer>
             {(value) => {
-
               return (
                 <div className="img-container p-5" onClick={() => value.handleDetail(id)}>
                   <Link to="/details">

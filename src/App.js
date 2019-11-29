@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import ReactTooltip from 'react-tooltip'
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/Navbar";
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route component={Default} />
+          
         </Switch>
         {/*<Modal />*/}
       </React.Fragment>
