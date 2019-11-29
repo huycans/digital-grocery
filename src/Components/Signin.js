@@ -1,13 +1,44 @@
 import React, { Component } from 'react'
 import Title from './Title'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { ProductConsumer } from '../context'
 import { Textbox, Radiobox, Select } from 'react-inputs-validation';
 
 export default class Signin extends Component {
   state = {
+    email: "",
+    password: "",
     emailError: "",
-    passwordError: ""
+    passwordError: "",
+    validate: false
+  }
+  handleChange(name, value){
+    this.setState({[name]: value});
+  }
+  signin(onFormChange){
+    //check inputs, if ok than move on, else do nothing
+    console.log("signing in");
+    this.setState({validate: true});
+    const {
+      emailError,
+      passwordError,
+      email, 
+      password
+    } = this.state;
+
+    if (emailError || passwordError){
+      return;
+    }
+    
+    //set email and password
+    onFormChange("email", email);
+    onFormChange("password", password);
+
+    //redirect to homepage
+    this.props.history.push("/");
+
+    //for app.js, when entering /signin or /signup, redirect to home page if already signed in
+
   }
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -17,9 +48,13 @@ export default class Signin extends Component {
     return (
       <ProductConsumer>
         {value => {
-          let { onFormChange, password, email, signin, singup } = value;
-          let validate = false;
+          let { onFormChange, password, email } = value;
+          let {validate} = this.state;
           let { emailError, passwordError } = this.state;
+          if (email.length != 0){
+            return <Redirect to="/" />
+          }
+
           return (
             <div className="container">
               <div className="row">
@@ -41,7 +76,7 @@ export default class Signin extends Component {
                           disabled={false} // Optional.[Bool].Default: false.
                           validate={validate} // Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
                           onChange={(email, e) => {
-                            onFormChange("email", email)
+                            this.handleChange("email", email)
                           }} // Required.[Func].Default: () => {}. Will return the value.
                           onBlur={e => {
 
@@ -78,7 +113,7 @@ export default class Signin extends Component {
                           disabled={false} // Optional.[Bool].Default: false.
                           validate={validate} // Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
                           onChange={(password, e) => {
-                            onFormChange("password", password)
+                            this.handleChange("password", password)
                           }} // Required.[Func].Default: () => {}. Will return the value.
                           onBlur={e => {
 
@@ -100,7 +135,7 @@ export default class Signin extends Component {
                     </div>
                     <br></br>
                     <div className="row justify-content-center">
-                      <button style={{ width: "200px" }} type="button" className="btn btn-primary" onClick={signin}  >Signin</button>
+                      <button style={{ width: "200px" }} type="button" className="btn btn-primary" onClick={() => this.signin(onFormChange)}  >Signin</button>
                     </div>
                   </div>
                   <div className="row justify-content-center mt-2">

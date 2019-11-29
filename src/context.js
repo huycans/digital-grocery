@@ -36,13 +36,15 @@ class ProductProvider extends Component {
     email: "",
     password: ""
   };
-
+  logout = () =>{
+    this.setState({ email: "",
+    password: ""})
+  }
   signup = () => {
     alert("signup")
   }
-  signin = () => {
-    alert("signin")
-
+  signin = (email, password) => {
+    this.setState({email, password})
   }
 
   onFormChange = (elemName, value) => {
@@ -105,7 +107,8 @@ class ProductProvider extends Component {
         cartTotal,
         products, 
         orderHistory,
-        detailProduct } = oldState;
+        detailProduct,
+        email } = oldState;
 
       this.setState({
         cart,
@@ -116,7 +119,8 @@ class ProductProvider extends Component {
         modalOpen: false,
         searchValue: "",
         orderHistory,
-        detailProduct
+        detailProduct,
+        email
       })
     };
   }
@@ -313,7 +317,7 @@ class ProductProvider extends Component {
           changeFrequency: this.changeFrequency,
           onFormChange: this.onFormChange,
           signin: this.signin,
-          signup: this.signup
+          logout: this.logout
         }}
       >
         {this.props.children}
