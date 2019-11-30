@@ -5,7 +5,7 @@ import HelpTooltip from "../HelpTooltip"
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import { ProductConsumer } from '../../context';
 import { monthList, yearList } from '../constants';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 class PaymentCardForm extends Component {
@@ -20,7 +20,8 @@ class PaymentCardForm extends Component {
     // monthDirty: false,
     // yearDirty: false,
     expMonth: "",
-    expYear: ""
+    expYear: "",
+    validate: false
   }
 
   checkDate() {
@@ -45,30 +46,42 @@ class PaymentCardForm extends Component {
     }
   }
 
+  toggleValidate() {
+    this.setState({ validate: !this.state.validate });
+  }
+
   render() {
     return (
       <ProductConsumer>
         {(value => {
-          let validate = false;
+          console.log("Rendering");
           let { onFormChange, name, cardnum, expMonth, expYear, security, pay } = value;
           let { paymethod, history } = this.props;
           let { paymethodError,
             nameError,
             cardnumError,
             securityError,
-            dateErrorMsg } = this.state;
-          const finishPayment = () => {
-            pay(); 
+            dateErrorMsg,
+            validate } = this.state;
+
+          const checkAndPay = () => {
+            this.setState({ validate: true });
+            if (!(!nameError && !cardnumError && !(expMonth == "") && !(expYear == "") && !securityError && this.checkDate())) {
+              return;
+            }
+            pay();
             history.push("/success");
           }
 
-          let disabledPay = !(!nameError && !cardnumError && !(expMonth == "") && !(expYear == "") && !securityError && this.checkDate());
-
-          let maxCardLength = 16;
-          let maxSecurity = 3;
+          let maxCardLength;
+          let maxSecurity;
           if (paymethod == "amexpress") {
             maxCardLength = 15;
             maxSecurity = 4;
+          }
+          else {
+            maxCardLength = 16;
+            maxSecurity = 3;
           }
           return <div className="column my-3">
             <h3>Enter your credit/debit card information below</h3>
@@ -141,7 +154,7 @@ class PaymentCardForm extends Component {
             </label>
 
             <div className="column">
-              <span>Expiration date <HelpTooltip msg="Experiation date on your card looks like mm/yy or mm/yyyy"/></span>
+              <span>Expiration date <HelpTooltip msg="Experiation date on your card looks like mm/yy or mm/yyyy" /></span>
               <div className="row">
                 <div className="expdate">
                   <Select
@@ -152,7 +165,7 @@ class PaymentCardForm extends Component {
                     //tabIndex="6" // Optional.[String or Number].Default: none.
                     value={expMonth} // Optional.[String].Default: "".
                     optionList={monthList} // Required.[Array of Object(s)].Default: [].
-                    // validate={true}
+                    validate={validate}
                     classNameSelect={"custom-select"}
                     onChange={(expMonth, e) => {
                       onFormChange("expMonth", expMonth.id);
@@ -180,7 +193,7 @@ class PaymentCardForm extends Component {
                     }}
                     value={expYear} // Optional.[String].Default: "".
                     optionList={yearList} // Required.[Array of Object(s)].Default: [].
-                    // validate={true}
+                    validate={validate}
                     classNameSelect={"custom-select"}
                     onChange={(expYear, e) => {
                       onFormChange("expYear", expYear.id);
@@ -244,7 +257,9 @@ class PaymentCardForm extends Component {
             <div className="row ml-1 mt-1">
               <br></br>
               <br></br>
-              <button type="button" className="btn btn-danger" onClick={() => finishPayment()} disabled={disabledPay} >Pay now</button>
+              <button type="button" className="btn btn-danger" onClick={checkAndPay}
+              // disabled={disabledPay} 
+              >Pay now</button>
             </div>
           </div>
         })}
