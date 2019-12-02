@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { detailProduct, storeProducts, storeCategories } from "./data";
-
+import { toast } from "react-toastify"
+import { ButtonContainer } from "./Components/Button";
 const ProductContext = React.createContext();
 //Provider
 //Consumer
@@ -37,9 +38,12 @@ class ProductProvider extends Component {
     password: ""
   };
 
-  logout = () =>{
-    this.setState({ email: "",
-    password: ""})
+
+  logout = () => {
+    this.setState({
+      email: "",
+      password: ""
+    })
   }
 
   clearPayment = () => {
@@ -51,34 +55,34 @@ class ProductProvider extends Component {
       expYear: "",
       security: "",
     });
-    
+
   }
 
   signin = (email, password) => {
-    this.setState({email, password})
+    this.setState({ email, password })
   }
 
   onFormChange = (elemName, value) => {
-    this.setState({[elemName]: value})
+    this.setState({ [elemName]: value })
   }
 
   pay = () => {
     //save the order
-    let {subscribed, frequency, cartTotal} = this.state;
+    let { subscribed, frequency, cartTotal } = this.state;
     //copy the cart into order
     let tempOrderHistory = [...this.state.orderHistory];
-    tempOrderHistory.push({items: this.state.cart, cartTotal, subscribed, frequency, timestamp: new Date()});
+    tempOrderHistory.push({ items: this.state.cart, cartTotal, subscribed, frequency, timestamp: new Date() });
     //add order to history and delete cart
-    this.setState({orderHistory: tempOrderHistory});
+    this.setState({ orderHistory: tempOrderHistory });
     this.clearCart();
   }
 
-  subscribeToggle(){
-    this.setState({subscribed: !this.state.subscribed})
+  subscribeToggle() {
+    this.setState({ subscribed: !this.state.subscribed })
   }
 
-  changeFrequency(event){
-    this.setState({frequency: event.target.value})
+  changeFrequency(event) {
+    this.setState({ frequency: event.target.value })
   }
 
   // initializeMostPopular(size) {
@@ -116,7 +120,7 @@ class ProductProvider extends Component {
         cartSubTotal,
         cartTax,
         cartTotal,
-        products, 
+        products,
         orderHistory,
         detailProduct,
         email } = oldState;
@@ -176,15 +180,22 @@ class ProductProvider extends Component {
     });
   };
 
-  addToCart = id => {
+  addToCart = (id, count) => {
     let tempProducts = [...this.state.products];
     const index = tempProducts.indexOf(this.getItem(id));
     const product = tempProducts[index];
     product.inCart = true;
     product.count = 1;
+
     const price = product.price;
     product.total = price;
 
+    //using hack to put count into product
+    //when user undo delete item, count is passed into here, otherwise it's undefined
+    if (count){
+      product.count = count;
+      product.total = price*product.count;
+    }
     this.setState(
       () => {
         return {
@@ -198,24 +209,26 @@ class ProductProvider extends Component {
     );
   };
 
-  openModal = id => {
-    const product = this.getItem(id);
-    this.setState(() => {
-      return { modalProduct: product, modalOpen: true };
-    });
-  };
+  // openModal = id => {
+  //   const product = this.getItem(id);
+  //   this.setState(() => {
+  //     return { modalProduct: product, modalOpen: true };
+  //   });
+  // };
 
-  closeModal = () => {
-    this.setState(() => {
-      return { modalOpen: false };
-    });
-  };
+  // closeModal = () => {
+  //   this.setState(() => {
+  //     return { modalOpen: false };
+  //   });
+  // };
 
   increment = id => {
     let tempCart = [...this.state.cart];
     const selectedProduct = tempCart.find(item => item.id === id);
     const index = tempCart.indexOf(selectedProduct);
     const product = tempCart[index];
+
+    console.log("product", product);
 
     product.count = product.count + 1;
     product.total = product.count * product.price;
@@ -255,16 +268,40 @@ class ProductProvider extends Component {
 
   };
 
+  showToast = (id, count) => {
+    toast.info(() => {return <div>
+      <h3>
+        Removed <button onClick={() => this.undo(id, count)}>UNDO</button>
+      </h3>
+    </div>}, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false
+      })
+  }
+
+  undo = (id, count) => {
+    this.addToCart(id, count);
+  }
+
   removeItem = id => {
+    //prepare to remove the item
     let tempProducts = [...this.state.products];
     let tempCart = [...this.state.cart];
-
     tempCart = tempCart.filter(item => item.id !== id);
     const index = tempProducts.indexOf(this.getItem(id));
     let removedProduct = tempProducts[index];
+
+    this.showToast(id, removedProduct.count);
+
+    //reset data
     removedProduct.inCart = false;
     removedProduct.count = 0;
     removedProduct.total = 0;
+
     this.setState(
       () => {
         return {
@@ -277,7 +314,9 @@ class ProductProvider extends Component {
       }
     );
   };
+
   clearCart = () => {
+    // showToast("Cart emptied");
     this.setState(
       () => {
         return {

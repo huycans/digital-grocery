@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from 'react-toastify';
+
 import { ProductConsumer } from "../../context";
 
 function Counter({ id, count }) {
@@ -28,6 +30,10 @@ function Counter({ id, count }) {
 function CartItem({ item, value, viewMode }) {
   const { id, title, img, price, total, count } = item;
   const { removeItem } = value;
+  const remove = (id) => {
+    toast("Remove");
+    removeItem(id)
+  }
 
   return (
     <div className="row my-2 text-capitalize text-center">

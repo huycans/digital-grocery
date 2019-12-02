@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 import Title from "../Title";
 import CartColumns from "./CartColumns";
 import EmptyCart from "./EmptyCart";
