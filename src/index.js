@@ -6,9 +6,24 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ProductProvider } from "./context";
 import * as serviceWorker from "./serviceWorker";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 ReactDOM.render(
   <ProductProvider>
     <Router>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick={false}
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable={false}
+        pauseOnHover
+      />
       <App />
     </Router>
   </ProductProvider>,

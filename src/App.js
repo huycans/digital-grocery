@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import ReactTooltip from 'react-tooltip'
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/Navbar";
@@ -17,6 +16,12 @@ import OrderHistory from "./Components/OrderHistory";
 import UserProfile from "./Components/UserProfile";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
+
+// import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+// Call it once in your app. At the root of your app is the best place
+// toast.configure()
 
 class App extends Component {
   render() {
@@ -35,7 +40,6 @@ class App extends Component {
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route component={Default} />
-          
         </Switch>
         {/*<Modal />*/}
       </React.Fragment>
