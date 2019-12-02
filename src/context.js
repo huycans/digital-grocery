@@ -268,10 +268,10 @@ class ProductProvider extends Component {
 
   };
 
-  showToast = (id, count) => {
+  showToast = (id, count, undo) => {
     toast.info(() => {return <div>
       <h3>
-        Removed <button onClick={() => this.undo(id, count)}>UNDO</button>
+        Removed <button onClick={() => undo(id, count)}>UNDO</button>
       </h3>
     </div>}, {
         position: "bottom-right",
@@ -283,7 +283,7 @@ class ProductProvider extends Component {
       })
   }
 
-  undo = (id, count) => {
+  undoItem = (id, count) => {
     this.addToCart(id, count);
   }
 
@@ -295,7 +295,7 @@ class ProductProvider extends Component {
     const index = tempProducts.indexOf(this.getItem(id));
     let removedProduct = tempProducts[index];
 
-    this.showToast(id, removedProduct.count);
+    this.showToast(id, removedProduct.count, this.undoItem);
 
     //reset data
     removedProduct.inCart = false;
