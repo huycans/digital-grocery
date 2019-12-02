@@ -36,13 +36,24 @@ class ProductProvider extends Component {
     email: "",
     password: ""
   };
+
   logout = () =>{
     this.setState({ email: "",
     password: ""})
   }
-  signup = () => {
-    alert("signup")
+
+  clearPayment = () => {
+    this.setState({
+      paymethod: "",
+      name: "",
+      cardnum: "",
+      expMonth: "",
+      expYear: "",
+      security: "",
+    });
+    
   }
+
   signin = (email, password) => {
     this.setState({email, password})
   }
@@ -317,7 +328,8 @@ class ProductProvider extends Component {
           changeFrequency: this.changeFrequency,
           onFormChange: this.onFormChange,
           signin: this.signin,
-          logout: this.logout
+          logout: this.logout,
+          clearPayment: this.clearPayment
         }}
       >
         {this.props.children}

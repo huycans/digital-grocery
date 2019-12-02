@@ -14,10 +14,22 @@ import {cards} from '../constants'
 
 //   </ProductConsumer>
 // }
-export default class Payment extends Component {
 
-  componentDidMount() {
-    // this.nameInput.focus();
+export default class PaymentWrapper extends Component {
+  render(){
+    return (
+      <ProductConsumer>
+        {value => {
+          return <Payment context={value} />
+        }}
+      </ProductConsumer>
+    )
+  }
+}
+class Payment extends Component {
+
+  componentWillUnmount(){
+    this.props.context.clearPayment();
   }
 
   render() {
