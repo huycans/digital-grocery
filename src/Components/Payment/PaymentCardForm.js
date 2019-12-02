@@ -5,7 +5,7 @@ import HelpTooltip from "../HelpTooltip"
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import { ProductConsumer } from '../../context';
 import { monthList, yearList } from '../constants';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import {cards} from '../constants'
 
 class PaymentCardForm extends Component {
@@ -21,7 +21,8 @@ class PaymentCardForm extends Component {
     // yearDirty: false,
     expMonth: "",
     expYear: "",
-    validate: false
+    validate: false,
+    isRedirecting: false
   }
 
   checkDate() {
@@ -46,11 +47,17 @@ class PaymentCardForm extends Component {
     }
   }
 
-  toggleValidate() {
-    this.setState({ validate: !this.state.validate });
-  }
+  // toggleValidate() {
+  //   this.setState({ validate: !this.state.validate });
+  // }
 
   render() {
+    if (this.state.isRedirecting){
+      return <Redirect to={{
+        pathname: "/history",
+        state: { isFromPayment: true }
+      }} />
+    }
     return (
       <ProductConsumer>
         {(value => {
@@ -70,7 +77,8 @@ class PaymentCardForm extends Component {
               return;
             }
             pay();
-            history.push("/success");
+            // history.push("/history");
+            this.setState({isRedirecting: true})
           }
 
           let maxCardLength;
