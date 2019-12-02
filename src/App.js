@@ -13,7 +13,7 @@ import CategoryPage from "./Components/CategoryPage";
 import Checkout from './Components/Checkout'
 import Payment from './Components/Payment/Payment'
 import OrderHistory from "./Components/OrderHistory";
-import PaymentSucessful from "./Components/PaymentSucessful";
+// import PaymentSucessful from "./Components/PaymentSucessful";
 import UserProfile from "./Components/UserProfile";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
@@ -31,7 +31,6 @@ class App extends Component {
           <Route path="/checkout" component={Checkout} />
           <Route path="/payment" component={Payment} />
           <Route path="/history" component={OrderHistory} />
-          <Route path="/success" component={PaymentSucessful} />
           <Route path="/user" component={UserProfile} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
