@@ -54,7 +54,7 @@ class PaymentCardForm extends Component {
     return (
       <ProductConsumer>
         {(value => {
-          console.log("Rendering");
+          // console.log("Rendering");
           let { onFormChange, name, cardnum, expMonth, expYear, security, pay } = value;
           let { paymethod, history } = this.props;
           let { paymethodError,
@@ -129,7 +129,8 @@ class PaymentCardForm extends Component {
                 disabled={false} // Optional.[Bool].Default: false.
                 validate={validate} // Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
                 onChange={(cardnum, e) => {
-                  onFormChange("cardnum", cardnum.replace(/\D/g, ''))
+                  // onFormChange("cardnum", cardnum.replace(/\D/g, ''))
+                  onFormChange("cardnum", cardnum)
                 }} // Required.[Func].Default: () => {}. Will return the value.
                 onBlur={e => {
                   // onFormChange("cardnum", e.target.value.replace(/\D/g,'')) //if I want to repair the entered string automatically
