@@ -6,6 +6,8 @@ import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import PaymentCardForm from "./PaymentCardForm"
 import { ProductConsumer } from '../../context';
 import Title from '../Title';
+import { ButtonContainer } from '../Button';
+import {cards} from '../constants'
 // export default const PaymentWrapper = () => {
 //   return <ProductConsumer>
 //     {value =>  <Payment context={value} ></Payment>}
@@ -23,26 +25,17 @@ export default class Payment extends Component {
       <ProductConsumer>
         {(value) => {
           let { onFormChange, name, cardnum, expMonth, expYear, paymethod, security } = value;
-
-          // change cardnum and security based on paymethod - does not work
-          function changeCardNumberAndSec(newpaymethod, cardnum, security){
-            // console.log("yo wtf")
-            if (newpaymethod == "amexpress" && cardnum.length == 16){
-              onFormChange("cardnum", "");
-            }
-            else if (newpaymethod == "visa" || newpaymethod == "mastercard" && security.length == 4){
-              onFormChange("security", "");
-            }
-            onFormChange("paymethod", newpaymethod);
-          }
-
           return (
-            <React.Fragment>
-              <div className="py-5">
-                <div className="container">
-                  <Title name="your" title="payment" />
-                  <form>
-                    <div className="column py-2">
+            <div className="py-5">
+              <div className="container">
+                <Title name="your" title="payment" />
+                <form>
+                  {paymethod !== ""
+                    ? <React.Fragment>
+                      <ButtonContainer onClick={() => onFormChange("paymethod", "")}><h4><i class="fas fa-long-arrow-alt-left"></i>Choose another payment method</h4></ButtonContainer>
+                      <PaymentCardForm paymethod={paymethod}></PaymentCardForm>
+                    </React.Fragment>
+                    : <div className="column py-2">
                       <h3>Pick a payment method</h3>
                       <br></br>
                       <Radiobox
@@ -50,11 +43,7 @@ export default class Payment extends Component {
                         id="paymethod" // Optional.[String].Default: "".  Input ID.
                         name="paymethod" // Optional.[String].Default: "". Input name.
                         value={paymethod} // Optional.[String].Default: "".
-                        optionList={[
-                          { id: 'visa', name: 'Visa' },
-                          { id: 'mastercard', name: 'Mastercard' },
-                          { id: 'amexpress', name: 'American Express' }
-                        ]}
+                        optionList={cards}
                         classNameContainer="payment-radio" // Optional.[String].Default: "".
                         customStyleContainer={{
                           display: 'flex',
@@ -63,12 +52,12 @@ export default class Payment extends Component {
                         customStyleOptionListItem={{ marginRight: '20px' }} // Optional.[Object].Default: {}.
                         onChange={(newpaymethod, e) => {
                           // console.log("Change paymethod");
-                          if (newpaymethod == "amexpress"){
-                            onFormChange("cardnum", "");
-                          }
-                          else if (newpaymethod == "visa" || newpaymethod == "mastercard"){
-                            onFormChange("security", "");
-                          }
+                          // if (newpaymethod == "amexpress") {
+                          //   onFormChange("cardnum", "");
+                          // }
+                          // else if (newpaymethod == "visa" || newpaymethod == "mastercard") {
+                          //   onFormChange("security", "");
+                          // }
                           onFormChange("paymethod", newpaymethod);
                           // onFormChange("paymethod", paymethod);
                         }} // Required.[Func].Default: () => {}. Will return the value.
@@ -83,14 +72,10 @@ export default class Payment extends Component {
                         }}
                       />
                     </div>
-                    {paymethod !== "" ?
-                      <PaymentCardForm paymethod={paymethod}></PaymentCardForm>
-                      : null
-                    }
-                  </form>
-                </div>
+                  }
+                </form>
               </div>
-            </React.Fragment>
+            </div>
           )
         }}
       </ProductConsumer>

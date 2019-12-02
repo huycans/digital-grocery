@@ -6,7 +6,7 @@ import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import { ProductConsumer } from '../../context';
 import { monthList, yearList } from '../constants';
 import { withRouter } from 'react-router-dom';
-
+import {cards} from '../constants'
 
 class PaymentCardForm extends Component {
   state = {
@@ -83,8 +83,11 @@ class PaymentCardForm extends Component {
             maxCardLength = 16;
             maxSecurity = 3;
           }
+          let cardName = cards.find((card) => {
+            return card.id == paymethod
+          }).name;
           return <div className="column my-3">
-            <h3>Enter your credit/debit card information below</h3>
+            <h3>Enter your {cardName} card information below</h3>
 
             <label>
               <span>Cardholder name</span>
