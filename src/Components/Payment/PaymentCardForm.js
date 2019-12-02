@@ -143,7 +143,7 @@ class PaymentCardForm extends Component {
                     if (!new RegExp("^[0-9]*$").test(number)) {
                       return "Please only enter digits from 0 to 9"
                     } else if (number.length != maxCardLength) {
-                      return `Card number must have ${maxCardLength} digits`;
+                      return `Card number has ${maxCardLength} digits`;
                     }
                     return true;
                   }
@@ -245,7 +245,7 @@ class PaymentCardForm extends Component {
                     if (!new RegExp("^[0-9]*$").test(number)) {
                       return "Please only enter digits from 0 to 9"
                     } else if (number.length != maxSecurity) {
-                      return `Security code must have only ${maxSecurity} digits`;
+                      return `Security code has ${maxSecurity} digits`;
                     }
                     return true;
                   }

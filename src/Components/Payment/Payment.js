@@ -24,17 +24,17 @@ export default class Payment extends Component {
         {(value) => {
           let { onFormChange, name, cardnum, expMonth, expYear, paymethod, security } = value;
 
-          //change cardnum and security based on paymethod - does not work
-          // function changeCardNumberAndSec(newpaymethod, cardnum, security){
-          //   // console.log("yo wtf")
-          //   if (newpaymethod == "amexpress" && cardnum.length == 16){
-          //     onFormChange("cardnum", cardnum.slice(0, 15));
-          //   }
-          //   else if (newpaymethod == "visa" || newpaymethod == "mastercard" && security.length == 4){
-          //     onFormChange("security", security.slice(0, 3));
-          //   }
-          //   onFormChange("paymethod", newpaymethod);
-          // }
+          // change cardnum and security based on paymethod - does not work
+          function changeCardNumberAndSec(newpaymethod, cardnum, security){
+            // console.log("yo wtf")
+            if (newpaymethod == "amexpress" && cardnum.length == 16){
+              onFormChange("cardnum", "");
+            }
+            else if (newpaymethod == "visa" || newpaymethod == "mastercard" && security.length == 4){
+              onFormChange("security", "");
+            }
+            onFormChange("paymethod", newpaymethod);
+          }
 
           return (
             <React.Fragment>
@@ -61,10 +61,16 @@ export default class Payment extends Component {
                           justifyContent: 'flex-start'
                         }} // Optional.[Object].Default: {}.
                         customStyleOptionListItem={{ marginRight: '20px' }} // Optional.[Object].Default: {}.
-                        onChange={(paymethod, e) => {
+                        onChange={(newpaymethod, e) => {
                           // console.log("Change paymethod");
-                          // changeCardNumberAndSec(paymethod, cardnum, security)
-                          onFormChange("paymethod", paymethod);
+                          if (newpaymethod == "amexpress"){
+                            onFormChange("cardnum", "");
+                          }
+                          else if (newpaymethod == "visa" || newpaymethod == "mastercard"){
+                            onFormChange("security", "");
+                          }
+                          onFormChange("paymethod", newpaymethod);
+                          // onFormChange("paymethod", paymethod);
                         }} // Required.[Func].Default: () => {}. Will return the value.
                         onBlur={(e) => { }} // Optional.[Func].Default: none.
                         validationOption={{
