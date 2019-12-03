@@ -9,10 +9,10 @@ export default function CartList({ value, viewMode, order }) {
     })
   }
   else display = cart.map(item => {
-    console.log("item", item);
+    // console.log("item", item);
     return <CartItem key={item.id} item={item} value={value} />;
   });
-  console.log(cart);
+  // console.log(cart);
 
 
   return (

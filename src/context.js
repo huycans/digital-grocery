@@ -268,25 +268,46 @@ class ProductProvider extends Component {
 
   };
 
-  showToast = (id, count, undo) => {
-    toast.info(() => {return <div>
-      <h3>
-        Removed <button onClick={() => undo(id, count)}>UNDO</button>
-      </h3>
-    </div>}, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false
-      })
+  showToast = (message, id, count, undo, cart) => {
+    const settings =  {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false
+    }
+    if (cart != undefined){
+      toast.info(() => {return <div>
+        <h4>
+          {message} <button onClick={() => undo(cart)}>UNDO</button>
+        </h4>
+      </div>}, settings)
+    }
+    else {
+      toast.info(() => {return <div>
+        <h4>
+          {message} <button onClick={() => undo(id, count)}>UNDO</button>
+        </h4>
+      </div>},settings)
+    }
   }
 
   undoItem = (id, count) => {
-    this.addToCart(id, count);
+    setTimeout(() => {
+      this.addToCart(id, count);
+    }, 50); 
   }
 
+  undoCart = (cart) => {
+    for (let i = 0; i < cart.length; i++) {
+      //hack! need setTimeout to remove missing items in cart problem because multiple this.addToCart calls
+      //need multiple setState calls, which cause asynch problem with state
+      setTimeout(() => {
+        this.undoItem(cart[i].id, cart[i].count);
+      }, 50*i); 
+    }
+  }
   removeItem = id => {
     //prepare to remove the item
     let tempProducts = [...this.state.products];
@@ -295,7 +316,7 @@ class ProductProvider extends Component {
     const index = tempProducts.indexOf(this.getItem(id));
     let removedProduct = tempProducts[index];
 
-    this.showToast(id, removedProduct.count, this.undoItem);
+    this.showToast("Item removed", id, removedProduct.count, this.undoItem);
 
     //reset data
     removedProduct.inCart = false;
@@ -316,7 +337,8 @@ class ProductProvider extends Component {
   };
 
   clearCart = () => {
-    // showToast("Cart emptied");
+    let cartCopy = [...this.state.cart]
+    this.showToast("Cart emptied", null, null, this.undoCart, cartCopy);
     this.setState(
       () => {
         return {
@@ -329,7 +351,8 @@ class ProductProvider extends Component {
         this.addTotals();
       }
     );
-  };
+  }
+
   addTotals = () => {
     let subtotal = 0;
     this.state.cart.map(item => {
