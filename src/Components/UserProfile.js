@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 import { ButtonContainer } from './Button'
 import { ProductConsumer } from '../context'
 import { Checkbox } from 'react-inputs-validation';
@@ -9,8 +10,8 @@ export default class UserProfile extends Component {
     return (
       <ProductConsumer>
         {value => {
-          let { onFormChange, help, username, email } = value;
-
+          let { onFormChange, help, email } = value;
+          if (email == "") return <Redirect to="/signin" />
           return (
             <div className="py-5">
               <div className="container">
