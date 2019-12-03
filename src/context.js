@@ -74,7 +74,10 @@ class ProductProvider extends Component {
     tempOrderHistory.push({ items: this.state.cart, cartTotal, subscribed, frequency, timestamp: new Date() });
     //add order to history and delete cart
     this.setState({ orderHistory: tempOrderHistory });
-    this.clearCart();
+    this.clearCart(true);
+    setTimeout(() => {
+      this.clearPayment();
+    }, 500); 
   }
 
   subscribeToggle() {
@@ -85,26 +88,6 @@ class ProductProvider extends Component {
     this.setState({ frequency: event.target.value })
   }
 
-  // initializeMostPopular(size) {
-  //   let tempMP = [];//contains id of random items
-  //   for (let i = 0; i < size; ++i) tempMP[i] = i;
-
-  //   // http://stackoverflow.com/questions/962802#962890
-  //   function shuffle(array) {
-  //     var tmp, current, top = array.length;
-  //     if (top) while (--top) {
-  //       current = Math.floor(Math.random() * (top + 1));
-  //       tmp = array[current];
-  //       array[current] = array[top];
-  //       array[top] = tmp;
-  //     }
-  //     return array;
-  //   }
-
-  //   tempMP = shuffle(tempMP);
-  //   this.setState({ mostPopular: tempMP });
-  // }
-
   componentDidMount() {
     // beforeunload event fires before user reload or exit the page, componentwillunmount doesn't work here
     window.addEventListener('beforeunload', () => {
@@ -113,7 +96,6 @@ class ProductProvider extends Component {
     });
     let oldState = JSON.parse(localStorage.getItem("storeState"));
     this.setProducts();
-    // this.initializeMostPopular(16);
 
     if (oldState != null) {
       let { cart,
@@ -208,19 +190,6 @@ class ProductProvider extends Component {
       }
     );
   };
-
-  // openModal = id => {
-  //   const product = this.getItem(id);
-  //   this.setState(() => {
-  //     return { modalProduct: product, modalOpen: true };
-  //   });
-  // };
-
-  // closeModal = () => {
-  //   this.setState(() => {
-  //     return { modalOpen: false };
-  //   });
-  // };
 
   increment = id => {
     let tempCart = [...this.state.cart];
@@ -336,9 +305,9 @@ class ProductProvider extends Component {
     );
   };
 
-  clearCart = () => {
+  clearCart = (dontShowToast) => {
     let cartCopy = [...this.state.cart]
-    this.showToast("Cart emptied", null, null, this.undoCart, cartCopy);
+    if (!dontShowToast) this.showToast("Cart emptied", null, null, this.undoCart, cartCopy);
     this.setState(
       () => {
         return {

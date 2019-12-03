@@ -29,9 +29,9 @@ const frequencies = [
   { id: "3", name: '3 weeks' },
   { id: "4", name: 'month' }]
 
-  const cards = [
-    { id: 'visa', name: 'Visa' },
-    { id: 'mastercard', name: 'Mastercard' },
-    { id: 'amexpress', name: 'American Express' }
-  ]
-export {monthList, yearList, frequencies, cards};
+const cards = [
+  { id: 'visa', name: 'Visa' },
+  { id: 'mastercard', name: 'Mastercard' },
+  { id: 'amexpress', name: 'American Express' }
+]
+export { monthList, yearList, frequencies, cards };

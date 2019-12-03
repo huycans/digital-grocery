@@ -77,8 +77,11 @@ class PaymentCardForm extends Component {
               return;
             }
             pay();
-            // history.push("/history");
             this.setState({isRedirecting: true})
+            // history.push("/history");
+            // setTimeout(() => {
+              
+            // }, 300); 
           }
 
           let maxCardLength;

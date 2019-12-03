@@ -75,7 +75,7 @@ export default class Checkout extends Component {
                     // validate={true}
                     classNameContainer="payment-radio" 
                     onChange={(frequency, e) => {
-                      onFormChange("frequency", frequency.id);
+                      onFormChange("frequency", frequency);
 
                     }} // Optional.[Func].Default: () => {}. Will return the value.
                     customStyleOptionListContainer={{ maxHeight: '200px', overflow: 'auto', fontSize: '14px' }} // Optional.[Object].Default: {}.

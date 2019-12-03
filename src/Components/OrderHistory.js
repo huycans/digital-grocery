@@ -16,12 +16,12 @@ export default class OrderHistory extends Component {
           let { orderHistory } = value;
           let { isFromPayment } = (this.props.location && this.props.location.state) ? this.props.location.state : false;
 
-          return (<div classname="py-5">
+          return (<div className="py-5">
             <div className="container">
               <Title name="your" title="history" />
               {isFromPayment
                 ? <div className="card my-4 text-green">
-                  <h4><i class="fas fa-check-circle">Your purchase was successful</i>
+                  <h4><i className="fas fa-check-circle">Your purchase was successful</i>
                   </h4>
                 </div>
                 : null
