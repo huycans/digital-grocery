@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ProductConsumer } from "../context";
 import { Link } from "react-router-dom";
 import { ButtonContainer } from "./Button";
+import { Counter } from './Cart/CartItem'
 export default class Details extends Component {
   render() {
     return (
@@ -37,22 +38,28 @@ export default class Details extends Component {
                     some info about product:{" "}
                   </p>{" "}
                   <p className="text-muted lead">{info}</p>
-                  <div>
+                  <div className="row">
                     {/**buttons */}
                     <Link to="/">
                       {" "}
                       <ButtonContainer>back to products</ButtonContainer>
                     </Link>
-                    <ButtonContainer
-                      yellow
-                      disabled={inCart}
-                      onClick={() => {
-                        value.addToCart(id);
-                        // value.openModal(id);
-                      }}
-                    >
-                      {inCart ? "incart" : "add to cart"}
-                    </ButtonContainer>
+                    {inCart ? (
+                      <div className="my-auto px-3">
+                        <Counter id={id} />
+                      </div>)
+                      : <ButtonContainer
+                        yellow
+                        disabled={inCart}
+                        onClick={() => {
+                          value.addToCart(id);
+                          // value.openModal(id);
+                        }}
+                      >
+                        add to cart
+                      </ButtonContainer>
+                    }
+
                   </div>
                 </div>
               </div>
