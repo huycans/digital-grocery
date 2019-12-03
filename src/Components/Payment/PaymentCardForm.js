@@ -169,7 +169,7 @@ class PaymentCardForm extends Component {
             </label>
 
             <div className="column">
-              <span>Expiration date <HelpTooltip msg="Experiation date on your card looks like mm/yy or mm/yyyy" /></span>
+              <span>Expiration date <HelpTooltip msg="Expiration date on your card should look like mm/yy or mm/yyyy" /></span>
               <div className="row">
                 <div className="expdate">
                   <Select
@@ -234,7 +234,7 @@ class PaymentCardForm extends Component {
             </div>
 
             <label>
-              <span>Security code <HelpTooltip msg="Visa and Mastercard's security code is 3 digits long and in the back of the card, American Express's is 4 digits and in the front" /></span>
+              <span>Security code <HelpTooltip msg="Visa and Mastercard's security code is 3 digits long and on the back of the card, American Express's is 4 digits and on the front" /></span>
               <Textbox
                 attributesInput={{
                   id: "security",

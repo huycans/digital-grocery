@@ -106,7 +106,8 @@ export default class Signup extends Component {
                           attributesInput={{
                             id: "password",
                             name: "password",
-                            placeholder: `Enter password`
+                            placeholder: `Enter password`,
+                            type: "password"
                           }}
                           classNameInput="signin"
                           value={password} // Optional.[String].Default: "".
