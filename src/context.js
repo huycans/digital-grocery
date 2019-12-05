@@ -222,7 +222,7 @@ class ProductProvider extends Component {
     product.count = product.count - 1;
 
     if (product.count === 0) {
-      this.removeItem(id);
+      this.removeItem(id, true);
     }
     else {
       product.total = product.count * product.price;
@@ -278,7 +278,7 @@ class ProductProvider extends Component {
       }, 50*i); 
     }
   }
-  removeItem = id => {
+  removeItem = (id, dontShowToast) => {
     //prepare to remove the item
     let tempProducts = [...this.state.products];
     let tempCart = [...this.state.cart];
@@ -286,7 +286,7 @@ class ProductProvider extends Component {
     const index = tempProducts.indexOf(this.getItem(id));
     let removedProduct = tempProducts[index];
 
-    this.showToast("Item removed", id, removedProduct.count, this.undoItem);
+    if (!dontShowToast) this.showToast("Item removed", id, removedProduct.count, this.undoItem);
 
     //reset data
     removedProduct.inCart = false;
