@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
 import { ButtonContainer } from './Button'
 import { ProductConsumer } from '../context'
 import { Checkbox } from 'react-inputs-validation';
 import Title from './Title'
+import { Link, Redirect } from 'react-router-dom'
 
 export default class UserProfile extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class UserProfile extends Component {
       <ProductConsumer>
         {value => {
           let { onFormChange, help, email } = value;
-          if (email == "") return <Redirect to="/signin" />
+          // if (email == "") return <Redirect to="/signin" />
           return (
             <div className="py-5">
               <div className="container">
@@ -56,6 +56,7 @@ export default class UserProfile extends Component {
                       Edit my profile
                     </ButtonContainer>
                   </p>
+                  <Link to="history">View my past orders</Link>
                 </div>
             </div>
           )
