@@ -136,11 +136,11 @@ export default class Signup extends Component {
                     </div>
                     <br></br>
                     <div className="row justify-content-center">
-                      <button style={{ width: "200px" }} type="button" className="btn btn-primary" onClick={() => this.signin(onFormChange)}  >Signin</button>
+                      <button style={{ width: "200px" }} type="button" className="btn btn-primary" onClick={() => this.signin(onFormChange)}  >Signup</button>
                     </div>
                   </div>
                   <div className="row justify-content-center mt-2">
-                    <Link to="/signup" >I don't have an account</Link>
+                    <Link to="/signup" >I already have an account</Link>
                   </div>
                 </div>
               </div>
