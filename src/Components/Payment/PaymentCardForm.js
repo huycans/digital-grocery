@@ -213,8 +213,6 @@ class PaymentCardForm extends Component {
                     onChange={(expYear, e) => {
                       onFormChange("expYear", expYear.id);
                       this.setState({ expYear: expYear.id }, () => this.setDateErrorMsg());
-
-
                     }} // Optional.[Func].Default: () => {}. Will return the value.
                     // onBlur={() => { }} // Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
                     customStyleOptionListContainer={{ maxHeight: '200px', overflow: 'auto', fontSize: '14px' }} // Optional.[Object].Default: {}.
@@ -257,7 +255,7 @@ class PaymentCardForm extends Component {
                   required: true, // Optional.[Bool].Default: true. To determin if it is a required field.
                   customFunc: number => { // Optional.[Func].Default: none. Custom function. Returns true or err message
                     if (!new RegExp("^[0-9]*$").test(number)) {
-                      return "Please only enter digits from 0 to 9"
+                      return "Please enter only digits from 0 to 9"
                     } else if (number.length != maxSecurity) {
                       return `Security code has ${maxSecurity} digits`;
                     }

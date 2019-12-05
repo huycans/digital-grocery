@@ -3,6 +3,7 @@ import Title from './Title'
 import { Link, Redirect } from 'react-router-dom'
 import { ProductConsumer } from '../context'
 import { Textbox, Radiobox, Select } from 'react-inputs-validation';
+import HelpTooltip from "./HelpTooltip"
 
 export default class Signup extends Component {
   state = {
@@ -101,7 +102,7 @@ export default class Signup extends Component {
                     <br></br>
                     <div className="row justify-content-center">
                       <label>
-                        <h4>Password</h4>
+                        <h4>Password <HelpTooltip msg="Password must have at least 6 characters"  /></h4>
                         <Textbox
                           attributesInput={{
                             id: "password",
@@ -140,7 +141,7 @@ export default class Signup extends Component {
                     </div>
                   </div>
                   <div className="row justify-content-center mt-2">
-                    <Link to="/signup" >I already have an account</Link>
+                    <Link to="/signin" >I already have an account</Link>
                   </div>
                 </div>
               </div>

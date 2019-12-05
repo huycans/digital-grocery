@@ -3,7 +3,7 @@ import Title from './Title'
 import { Link, Redirect } from 'react-router-dom'
 import { ProductConsumer } from '../context'
 import { Textbox, Radiobox, Select } from 'react-inputs-validation';
-
+import HelpTooltip from "./HelpTooltip"
 export default class Signin extends Component {
   state = {
     email: "",
@@ -101,7 +101,7 @@ export default class Signin extends Component {
                     <br></br>
                     <div className="row justify-content-center">
                       <label>
-                        <h4>Password</h4>
+                        <h4>Password <HelpTooltip msg="Password must have at least 6 characters"  /></h4>
                         <Textbox
                           attributesInput={{
                             id: "password",
@@ -132,8 +132,9 @@ export default class Signin extends Component {
                             this.setState({ passwordError: invalid })
                           }}
                         />
+                        
                       </label>
-                    </div>
+                    </div> 
                     <br></br>
                     <div className="row justify-content-center">
                       <button style={{ width: "200px" }} type="button" className="btn btn-primary" onClick={() => this.signin(onFormChange)}  >Signin</button>
