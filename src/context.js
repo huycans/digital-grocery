@@ -78,6 +78,7 @@ class ProductProvider extends Component {
     setTimeout(() => {
       this.clearPayment();
     }, 500); 
+    this.setState({searchValue: "", filteredProducts: []});
   }
 
   subscribeToggle() {
